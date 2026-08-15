@@ -21,6 +21,10 @@ class Cabania(models.Model):
     disponible = BooleanField(default=True)
     caracteristicas = ManyToManyField(Caracteristica)
 
+    class Meta:
+        verbose_name = "Cabaña"
+        verbose_name_plural = "Cabañas"
+
     def __str__(self):
         return self.nombre
 
