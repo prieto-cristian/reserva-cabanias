@@ -9,6 +9,9 @@ from django.db.models import (TextField, PositiveIntegerField, CharField,
 class Caracteristica(models.Model):
     nombre = CharField(max_length=100)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Cabania(models.Model):
     nombre = CharField(max_length=254)
@@ -17,6 +20,9 @@ class Cabania(models.Model):
     precio_por_noche = DecimalField(max_digits=10, decimal_places=2)
     disponible = BooleanField(default=True)
     caracteristicas = ManyToManyField(Caracteristica)
+
+    def __str__(self):
+        return self.nombre
 
 
 class Reserva(models.Model):
@@ -27,3 +33,6 @@ class Reserva(models.Model):
     fecha_ingreso = DateField()
     fecha_salida = DateField()
     fecha_solicitud = DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nombre_clientes} - {self.cabania}"
