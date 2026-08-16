@@ -31,7 +31,7 @@ class Cabania(models.Model):
 
 class Reserva(models.Model):
     cabania = ForeignKey(Cabania, on_delete=CASCADE, related_name="reservas")
-    nombre_clientes = CharField(max_length=50)
+    nombre_cliente = CharField(max_length=50)
     email_cliente = EmailField()
     telefono_cliente = CharField(max_length=30)
     fecha_ingreso = DateField()
@@ -39,4 +39,4 @@ class Reserva(models.Model):
     fecha_solicitud = DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.nombre_clientes} - {self.cabania}"
+        return f"{self.nombre_cliente} - {self.cabania}"

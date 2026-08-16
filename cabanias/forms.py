@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import TextInput
 
 from .models import Reserva
 
@@ -15,7 +14,7 @@ class ReservaForm(forms.ModelForm):
             "email_cliente": forms.EmailInput(attrs={
                 'class': 'form-control',
             }),
-            "telefono_cliente": TextInput(attrs={
+            "telefono_cliente": forms.TextInput(attrs={
                 'class': 'form-control',
             }),
             "fecha_ingreso": forms.DateInput(attrs={

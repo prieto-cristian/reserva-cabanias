@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block detalle_reserva %}
+<div class="py-4"></div>
+<div class="container py-5">
+
+<div class="row g-4">
+
+    <!-- Información de la cabaña -->
+    <div class="col-lg-7">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h1 class="h2 mb-1">{{ cabania.nombre }}</h1>
+                        <p class="text-secondary mb-0">
+                            Información de la cabaña
+                        </p>
+                    </div>
+
+                    {% if cabania.disponible %}
+                        <span class="badge text-bg-success">
+                            Disponible
+                        </span>
+                    {% else %}
+                        <span class="badge text-bg-danger">
+                            No disponible
+                        </span>
+                    {% endif %}
+                </div>
+
+                <hr>
+
+                <h2 class="h5">Descripción</h2>
+                <p class="text-secondary">
+                    {{ cabania.descripcion }}
+                </p>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-sm-6">
+                        <div class="border rounded p-3 h-100">
+                            <small class="text-secondary d-block">
+                                Capacidad
+                            </small>
+                            <strong>
+                                {{ cabania.capacidad_personas }}
+                                persona{% if cabania.capacidad_personas > 1 %}s{% endif %}
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="border rounded p-3 h-100">
+                            <small class="text-secondary d-block">
+                                Precio por noche
+                            </small>
+                            <strong class="fs-5">
+                                ${{ cabania.precio_por_noche }}
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h2 class="h5">Características</h2>
+
+                {% if cabania.caracteristicas.all %}
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for caracteristica in cabania.caracteristicas.all %}
+                            <span class="badge text-bg-light border text-dark">
+                                {{ caracteristica.nombre }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-secondary mb-0">
+                        Características no especificadas.
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de reserva -->
+    {% if cabania.disponible %}
+    <div class="col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <h2 class="h4 mb-1">Reservar cabaña</h2>
+                <p class="text-secondary mb-4">
+                    Completá tus datos para solicitar una reserva.
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="{{ form.nombre_cliente.id_for_label }}"
+                               class="form-label">
+                            Nombre
+                        </label>
+                        {{ form.nombre_cliente }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.email_cliente.id_for_label }}"
+                               class="form-label">
+                            Correo electrónico
+                        </label>
+                        {{ form.email_cliente }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.telefono_cliente.id_for_label }}"
+                               class="form-label">
+                            Teléfono
+                        </label>
+                        {{ form.telefono_cliente }}
+                    </div>
+
+                    <div class="row g-3 mb-3">
+
+                        <div class="col-md-6">
+                            <label for="{{ form.fecha_ingreso.id_for_label }}"
+                                   class="form-label">
+                                Fecha de ingreso
+                            </label>
+                            {{ form.fecha_ingreso }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="{{ form.fecha_salida.id_for_label }}"
+                                   class="form-label">
+                                Fecha de salida
+                            </label>
+                            {{ form.fecha_salida }}
+                        </div>
+
+                    </div>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Confirmar reserva
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+</div>
+
+{% endblock detalle_reserva %}

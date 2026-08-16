@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block reserva_enviada %}
+<div class="py-4"></div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card shadow-sm text-center">
+                <div class="card-body p-5">
+
+                    <div class="mb-4">
+                        <span class="badge rounded-pill text-bg-success fs-6 px-3 py-2">
+                            ¡Reserva confirmada!
+                        </span>
+                    </div>
+
+                    <h1 class="h2 mb-3">
+                        ¡Gracias por tu reserva!
+                    </h1>
+
+                    <p class="text-secondary mb-4">
+                        Hemos recibido correctamente tu solicitud de reserva.
+                        Pronto nos pondremos en contacto contigo para confirmar los detalles.
+                    </p>
+
+                    <a href="{% url 'listar_cabanias' %}" class="btn btn-primary">
+                        Volver al inicio
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock reserva_enviada %}
