@@ -1,12 +1,9 @@
-from multiprocessing import context
-
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib import messages
 from .models import Reserva, Cabania, Caracteristica
 from .forms import ReservaForm
-
 # Create your views here.
 
 class CabaniaListView(ListView):
@@ -26,9 +23,14 @@ class ReservaCreateView(CreateView):
         context["cabania"] = get_object_or_404(Cabania, pk=self.kwargs["pk"])
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["cabania"] = get_object_or_404(Cabania, pk=self.kwargs["pk"])
+        return kwargs
+
     def form_valid(self, form):
-        cabania = get_object_or_404(Cabania, pk=self.kwargs["pk"])
-        form.instance.cabania = cabania
+        form.instance.cabania = form.cabania
+        messages.success(self.request, "Gracias por tu reserva")
         return super().form_valid(form)
 
 

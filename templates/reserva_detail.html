@@ -130,6 +130,11 @@
                                 Fecha de ingreso
                             </label>
                             {{ form.fecha_ingreso }}
+                            {% for error in form.fecha_ingreso.errors %}
+                            <div class="text-danger">
+                            {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="col-md-6">
@@ -138,6 +143,11 @@
                                 Fecha de salida
                             </label>
                             {{ form.fecha_salida }}
+                            {% for error in form.fecha_salida.errors %}
+                            <div class="text-danger">
+                            {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
 
                     </div>
