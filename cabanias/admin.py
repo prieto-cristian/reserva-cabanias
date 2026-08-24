@@ -8,6 +8,15 @@ class ReservaAdmin(admin.ModelAdmin):
         fields = "__all__"
 
 
-admin.site.register(Cabania)
-admin.site.register(Caracteristica)
+class CabaniaAdmin(admin.ModelAdmin):
+    search_fields = ("nombre",)
+    list_display = ("nombre", "descripcion", "capacidad_personas")
+
+
+class CaracteristicaAdmin(admin.ModelAdmin):
+    search_fields = ("nombre",)
+
+
+admin.site.register(Cabania, CabaniaAdmin)
+admin.site.register(Caracteristica, CaracteristicaAdmin)
 admin.site.register(Reserva, ReservaAdmin)
